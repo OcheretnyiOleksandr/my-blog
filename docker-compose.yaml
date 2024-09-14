@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:15.2
+    ports:
+      - target: 5432
+        published: 5432
+    environment:
+      POSTGRES_USER: "testUser"
+      POSTGRES_PASSWORD: "testUser"
+      POSTGRES_DB: "my_blog_db"
