@@ -14,12 +14,21 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "typeorm": "npm run build && npx typeorm -d dist/data-source.js",
+    "typeorm:migrate": "npx typeorm migration:run -d src/data-source.ts",
+    "migration:generate": "npm run typeorm -- migration:generate",
+    "migration:run": "npm run typeorm -- migration:run",
+    "migration:revert": "npm run typeorm -- migration:revert"
   },
   "dependencies": {
+    "@nestjs-mod/docker-compose": "^1.15.2",
     "@nestjs/common": "^10.0.0",
     "@nestjs/core": "^10.0.0",
     "@nestjs/platform-express": "^10.0.0",
+    "@nestjs/swagger": "^7.4.0",
+    "@nestjs/typeorm": "^10.0.2",
+    "pg": "^8.12.0",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1"
   },
@@ -44,6 +53,7 @@
     "ts-loader": "^9.4.3",
     "ts-node": "^10.9.1",
     "tsconfig-paths": "^4.2.0",
+    "tsx": "^4.19.0",
     "typescript": "^5.1.3"
   },
   "jest": {
