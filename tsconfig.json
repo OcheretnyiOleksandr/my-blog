@@ -17,5 +17,7 @@
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false
-  }
+  },
+  "include": ["src/**/*.ts", "src/migrations/**/*.ts"],
+  "exclude": ["node_modules"]
 }
