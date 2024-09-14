@@ -1,0 +1,17 @@
+{
+  "type": "postgres",
+  "host": "localhost",
+  "port": 5432,
+  "username": "testUser",
+  "password": "testUser",
+  "database": "my_blog_db",
+  "entities": [
+    "scr/modules/**/*.entity.ts"
+  ],
+  "migrations": ["dist/db/migrations/*.js"],
+  "cli": {
+    "migrationsDir": "dist/db/migrations"
+  },
+  "synchronize": true,
+  "logging": true
+}
