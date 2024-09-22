@@ -7,9 +7,11 @@ export class Comment1726310668858 implements MigrationInterface {
     await queryRunner.query(
       `CREATE TABLE "comment"
        (
-           "id"      SERIAL PRIMARY KEY,
-           "post_id" INT     NOT NULL REFERENCES post ("id") ON DELETE CASCADE,
-           "comment" VARCHAR NOT NULL
+           "id"         SERIAL PRIMARY KEY,
+           "user_id"    INT       NOT NULL,
+           "post_id"    INT       NOT NULL REFERENCES post ("id") ON DELETE CASCADE,
+           "comment"    VARCHAR   NOT NULL,
+           "created_at" TIMESTAMP NOT NULL
        )`,
     );
   }

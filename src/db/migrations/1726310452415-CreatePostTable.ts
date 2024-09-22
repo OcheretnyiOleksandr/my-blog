@@ -7,9 +7,11 @@ export class Post1726310452415 implements MigrationInterface {
     await queryRunner.query(
       `CREATE TABLE "post"
        (
-           "id"      SERIAL PRIMARY KEY NOT NULL,
-           "user_id" INT                NOT NULL,
-           "article" VARCHAR            NOT NULL
+           "id"         SERIAL PRIMARY KEY NOT NULL,
+           "user_id"    INT                NOT NULL,
+           "title"      VARCHAR            NOT NULL,
+           "article"    VARCHAR            NOT NULL,
+           "created_at" TIMESTAMP          NOT NULL
        )`,
     );
   }
