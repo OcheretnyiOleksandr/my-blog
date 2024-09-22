@@ -1,16 +1,10 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from './modules/user/entities/user.entity';
-import { AppDataSource } from './data-source';
+import { DbModule } from './config/db/db.module';
+import { UserModule } from './modules/user/user.module';
+import { PostModule } from './modules/post/post.module';
+import { CommentModule } from './modules/comment/comment.module';
 
 @Module({
-  imports: [
-    TypeOrmModule.forRoot(AppDataSource.options),
-    TypeOrmModule.forFeature([User]),
-  ],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [DbModule, UserModule, PostModule, CommentModule],
 })
 export class AppModule {}
