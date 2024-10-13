@@ -14,7 +14,7 @@ export class UserController {
   @ApiOperation({ summary: 'Get users information' })
   @ApiResponse({
     status: 200,
-    description: 'User by ID Information',
+    description: "User's Information",
   })
   @Get('users')
   async getAllUsers(): Promise<UserDto[]> {
@@ -33,26 +33,10 @@ export class UserController {
     description: 'User ID',
     name: 'userId',
   })
-  @Get('user/:userId')
+  @Get('users/:userId')
   async getUserById(@Param('userId') userId: number): Promise<UserDto> {
     const user = this.userService.getById(userId);
 
     return user.then((u) => UserMapper.toDto(u));
-  }
-
-  @ApiOperation({ summary: 'Create User' })
-  @ApiBody({
-    description: 'User request body',
-    type: AuthenticationUserDto,
-  })
-  @ApiResponse({
-    status: 200,
-    description: 'Create User',
-  })
-  @Post('create/user')
-  async createUser(@Body() payload: AuthenticationUserDto) {
-    const user = UserMapper.fromDto(payload);
-
-    await this.userService.createUser(user);
   }
 }

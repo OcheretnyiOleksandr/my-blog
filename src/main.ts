@@ -9,7 +9,7 @@ async function bootstrap() {
 
   swagger(app);
 
-  await app.listen(3000);
+  await app.listen(8080);
 }
 
 const swagger = (app) => {

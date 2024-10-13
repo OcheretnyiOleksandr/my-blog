@@ -1,4 +1,12 @@
 import {
+  ApiBody,
+  ApiOperation,
+  ApiParam,
+  ApiQuery,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
+import {
   Body,
   Controller,
   Get,
@@ -23,12 +31,14 @@ export class PostController {
     status: 200,
     description: "User's Articles",
   })
-  @ApiParam({
+  @ApiQuery({
     description: 'User ID',
     name: 'userId',
+    type: 'number',
+    required: true,
   })
-  @Get('user/:userId/articles')
-  async getUsersArticles(@Param('userId') userId: number): Promise<PostDto[]> {
+  @Get('articles')
+  async getUsersArticles(@Query('userId') userId: number): Promise<PostDto[]> {
     const articles = await this.postService.getByUserId(userId);
 
     return articles.map((post) => PostMapper.toDto(post));
@@ -44,12 +54,14 @@ export class PostController {
     status: 200,
     description: 'Create Post',
   })
-  @ApiParam({
+  @ApiQuery({
     description: 'User ID',
     name: 'userId',
+    type: 'number',
+    required: true,
   })
-  @Post('user/:userId/article')
-  async createPost(@Body() payload: PostDto, @Param('userId') userId: number) {
+  @Post('article')
+  async createPost(@Body() payload: PostDto, @Query('userId') userId: number) {
     const post = PostMapper.fromDto(payload);
 
     await this.postService.createPost(post, userId);

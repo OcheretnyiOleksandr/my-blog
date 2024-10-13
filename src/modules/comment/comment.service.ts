@@ -21,7 +21,7 @@ export class CommentService {
   }
 
   async getByPostId(postId: number): Promise<Comment[]> {
-    return await this.commentRepository
+    return this.commentRepository
       .findBy({ post_id: postId })
       .then((comments) =>
         comments.sort(
