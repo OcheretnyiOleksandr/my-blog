@@ -28,4 +28,8 @@ export class PostService {
         ),
       );
   }
+
+  async getPostById(id: number): Promise<Post> {
+    return await this.postRepository.findOneBy({ id });
+  }
 }
