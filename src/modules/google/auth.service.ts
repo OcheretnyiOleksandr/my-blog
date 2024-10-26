@@ -28,28 +28,25 @@ export class AuthService {
       newUser.avatar_url = googleProfile.picture;
 
       const createdUser = await this.userService.createUser(newUser);
+
       const payload = {
         email: createdUser.email,
         id: createdUser.id,
       };
-
       const jwtToken = this.jwtService.sign(payload);
-      this.setCookies(response, jwtToken);
 
-      return response
-        .status(201)
-        .json({ message: 'User created and logged in' });
+      this.setCookies(response, jwtToken);
+      return response.redirect(`/articles?userId=${createdUser.id}`);
     }
 
     const payload = {
       email: user.email,
       id: user.id,
     };
-
     const jwtToken = this.jwtService.sign(payload);
-    this.setCookies(response, jwtToken);
 
-    response.status(200).json({ message: 'User logged in' });
+    this.setCookies(response, jwtToken);
+    return response.redirect(`/articles?userId=${user.id}`);
   }
 
   private setCookies(response, token: string) {
