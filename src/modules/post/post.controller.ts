@@ -64,7 +64,7 @@ export class PostController {
   async createPost(@Body() payload: PostDto, @Query('userId') userId: number) {
     const post = PostMapper.fromDto(payload);
 
-    await this.postService.createPost(post, userId);
+    await this.postService.create(post, userId);
   }
 
   @UseGuards(AuthGuard('jwt'))

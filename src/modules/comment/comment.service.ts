@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Comment } from './comment.entity';
 import { Repository } from 'typeorm';
@@ -20,14 +20,15 @@ export class CommentService {
     await this.commentRepository.save(newComment);
   }
 
-  async getByPostId(postId: number): Promise<Comment[]> {
-    return this.commentRepository
-      .findBy({ post_id: postId })
-      .then((comments) =>
-        comments.sort(
-          (c1: Comment, c2: Comment) =>
-            c1.createdAt.getTime() - c2.createdAt.getTime(),
-        ),
-      );
+  async getCommentByPostId(postId: number): Promise<Comment[]> {
+    const comments = await this.commentRepository.findBy({ post_id: postId });
+    if (!comments) {
+      throw new NotFoundException(`No comments found for articleId:${postId}`);
+    }
+
+    return comments.sort(
+      (c1: Comment, c2: Comment) =>
+        c1.created_at.getTime() - c2.created_at.getTime(),
+    );
   }
 }

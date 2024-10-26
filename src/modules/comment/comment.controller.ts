@@ -12,7 +12,7 @@ import { CommentMapper } from './comment.mapper';
 import { CommentDto } from './comment.dto';
 
 @ApiTags('Comment Controller')
-@Controller()
+@Controller('comment')
 export class CommentController {
   constructor(private readonly commentService: CommentService) {}
 
@@ -25,9 +25,11 @@ export class CommentController {
     description: 'Post ID',
     name: 'articleId',
   })
-  @Get('article/:articleId')
-  async getCommentsByArticleId(@Param('articleId') articleId: number) {
-    const comments = await this.commentService.getByPostId(articleId);
+  @Get(':articleId')
+  async getCommentsByArticleId(
+    @Param('articleId') articleId: number,
+  ): Promise<CommentDto[]> {
+    const comments = await this.commentService.getCommentByPostId(articleId);
 
     return comments.map((comment) => CommentMapper.toDto(comment));
   }
@@ -49,7 +51,7 @@ export class CommentController {
     description: 'Author ID',
     name: 'userId',
   })
-  @Post('article/:articleId')
+  @Post(':articleId')
   async createComment(
     @Body() payload: CommentDto,
     @Param('articleId') articleId: number,

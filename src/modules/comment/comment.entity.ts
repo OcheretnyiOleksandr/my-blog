@@ -14,6 +14,10 @@ export class Comment {
   @Column({ type: 'varchar', nullable: false })
   comment: string;
 
-  @Column({ type: 'timestamp', nullable: false })
-  createdAt: Date;
+  @Column({
+    type: 'timestamp',
+    nullable: false,
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  created_at: Date;
 }
