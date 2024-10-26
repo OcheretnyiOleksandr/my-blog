@@ -1,13 +1,15 @@
-import { Controller, Get, Post, Query } from '@nestjs/common';
+import { Controller, Get, Post, Query, UseGuards } from '@nestjs/common';
 import { LikeService } from './like.service';
 import { ApiOperation, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { LikeDto } from './like.dto';
+import { AuthGuard } from '@nestjs/passport';
 
 @ApiTags('Like Controller')
 @Controller('likes')
 export class LikeController {
   constructor(private readonly likeService: LikeService) {}
 
+  @UseGuards(AuthGuard('jwt'))
   @ApiOperation({ summary: 'Create Like' })
   @ApiResponse({
     status: 200,
@@ -33,6 +35,7 @@ export class LikeController {
     await this.likeService.like(userId, articleId);
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @ApiOperation({ summary: 'Unlike' })
   @ApiResponse({
     status: 200,
@@ -58,6 +61,7 @@ export class LikeController {
     await this.likeService.unlike(userId, articleId);
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @ApiOperation({ summary: 'Get Like Count' })
   @ApiResponse({
     status: 200,

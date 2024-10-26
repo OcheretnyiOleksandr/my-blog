@@ -6,16 +6,26 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
 import { CommentService } from './comment.service';
 import { CommentMapper } from './comment.mapper';
 import { CommentDto } from './comment.dto';
+import { AuthGuard } from '@nestjs/passport';
 
 @ApiTags('Comment Controller')
 @Controller('comment')
 export class CommentController {
   constructor(private readonly commentService: CommentService) {}
 
+  @UseGuards(AuthGuard('jwt'))
   @ApiOperation({ summary: 'Get Comments' })
   @ApiResponse({
     status: 200,
@@ -34,6 +44,7 @@ export class CommentController {
     return comments.map((comment) => CommentMapper.toDto(comment));
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @ApiOperation({ summary: 'Create Comment' })
   @ApiResponse({
     status: 200,
