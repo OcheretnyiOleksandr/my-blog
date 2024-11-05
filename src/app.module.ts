@@ -6,6 +6,7 @@ import { AuthModule } from './modules/google/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { DbModule } from './config/db/db.module';
 import { LikeModule } from './modules/like/like.module';
+import { ScreenshotModule } from './modules/screenshot/screenshot.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { LikeModule } from './modules/like/like.module';
     PostModule,
     CommentModule,
     LikeModule,
+    ScreenshotModule,
   ],
 })
 export class AppModule {}
