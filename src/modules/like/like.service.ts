@@ -26,6 +26,8 @@ export class LikeService {
     });
 
     await this.likeRepository.save(newLike);
+
+    return Promise.resolve();
   }
 
   async unlike(userId: number, postId: number): Promise<void> {
@@ -35,6 +37,8 @@ export class LikeService {
     if (!like) return Promise.resolve();
 
     await this.likeRepository.delete({ user_id: userId, post_id: postId });
+
+    return Promise.resolve();
   }
 
   async countLikes(postId: number): Promise<number> {
